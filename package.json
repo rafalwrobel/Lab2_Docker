@@ -1,0 +1,13 @@
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "description": "My Node.js Application",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "geoip-lite": "^1.4.7",
+    "http": "^0.0.0"
+    "https": "^1.0.0"
+  }
+}
