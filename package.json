@@ -9,6 +9,9 @@
   "dependencies": {
     "geoip-lite": "^1.4.7",
     "http": "^0.0.0",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+  "devDependencies": {
+    "webpack": "^5.0.0"
+  }
   }
 }
