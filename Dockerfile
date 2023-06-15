@@ -1,5 +1,5 @@
 # Użyj obrazu bazowego Node.js
-FROM node:latest
+FROM node:19.5.0-alpine
 
 # Utwórz katalog roboczy w kontenerze
 WORKDIR /myapp
