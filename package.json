@@ -1,14 +1,16 @@
 {
-  "name": "my-node-app",
+  "name": "server-app",
   "version": "1.0.0",
-  "description": "My Node.js Application",
+  "description": "Program serwera",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo 'No build steps required'"
   },
+  "author": "Rafał Wróbel",
+  "license": "MIT",
   "dependencies": {
-    "geoip-lite": "^1.4.7",
-    "http": "^0.0.0",
-    "https": "^1.0.0"
+    "http": "^0.0.0"
   }
 }
 

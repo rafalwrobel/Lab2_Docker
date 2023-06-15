@@ -1,53 +1,25 @@
 const http = require('http');
-const https = require('https');
+const os = require('os');
+
+const authorName = "Rafał Wróbel";
 
 const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
   const clientIP = req.connection.remoteAddress;
+  const date = new Date();
+  const clientTime = date.toLocaleString('en-US', { timeZone: 'UTC' });
+  const serverTime = date.toLocaleString('en-US', { timeZone: 'UTC' });
 
-  // Wywołaj publiczne API GeoJS dla adresu IP klienta
-  const apiURL = `https://get.geojs.io/v1/ip/geo/${clientIP}.json`;
-  https.get(apiURL, (response) => {
-    let data = '';
+  res.end(`<h1>Informacje o kliencie</h1>
+    <p>Adres IP klienta: ${clientIP}</p>
+    <p>Data i godzina w strefie czasowej klienta: ${clientTime}</p>
+    <p>Data i godzina w strefie czasowej serwera: ${serverTime}</p>
+  `);
 
-    response.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    response.on('end', () => {
-      // Parsowanie odpowiedzi API
-      const responseData = JSON.parse(data);
-
-      // Pobierz strefę czasową z odpowiedzi API
-      const clientTimezone = responseData.timezone;
-
-      // Pobierz bieżącą datę i czas
-      const currentDateTime = new Date();
-
-      // Konwertuj bieżącą datę i godzinę do strefy czasowej klienta
-      const clientDateTime = new Date(currentDateTime.toLocaleString('en-US', { timeZone: clientTimezone }));
-
-      // Wygeneruj treść strony informacyjnej dla klienta
-      const pageContent = `<html><body>
-        <h1>Witaj, klient!</h1>
-        <p>Twój adres IP: ${clientIP}</p>
-        <p>Aktualna data i godzina w Twojej strefie czasowej (${clientTimezone}): ${clientDateTime}</p>
-        </body></html>`;
-
-      // Ustaw nagłówki odpowiedzi
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-
-      // Wyślij zawartość strony do klienta
-      res.write(pageContent);
-      res.end();
-    });
-  });
+  console.log(`Serwer uruchomiony. Autor: ${authorName}. Port: ${server.address().port}`);
 });
 
-// Określ port, na którym serwer ma nasłuchiwać
-const port = 8000;
-
-// Uruchom serwer na określonym porcie
-server.listen(port, () => {
-  console.log(`Serwer uruchomiony na porcie ${port}`);
+server.listen(8000, () => {
+  console.log('Serwer nasłuchuje na porcie 8000');
 });
 

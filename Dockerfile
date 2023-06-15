@@ -1,23 +1,29 @@
-# Użyj obrazu bazowego Node.js
-FROM node:19.5.0-alpine
+# Etap 1: Budowanie aplikacji
+FROM node:14 as build
 
-# Utwórz katalog roboczy w kontenerze
-WORKDIR /myapp
+WORKDIR /app
 
-# Skopiuj plik package.json i package-lock.json (jeśli istnieje) do kontenera
 COPY package*.json ./
 
-# Zainstaluj zależności
 RUN npm install
 
-# Skopiuj kod źródłowy do kontenera
 COPY . .
 
-#Wykonaj polecenie build
 RUN npm run build
 
-# Skonfiguruj zmienne środowiskowe
-ENV PORT=8000
+# Etap 2: Tworzenie optymalnego obrazu
 
-# Wykonaj polecenie uruchamiające serwer
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/package*.json ./
+COPY --from=build /app ./
+
+RUN npm install
+
+EXPOSE 8000
+
 CMD ["node", "server.js"]
+LABEL author="Rafał Wróbel"
+
