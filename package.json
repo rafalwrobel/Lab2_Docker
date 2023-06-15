@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "My Node.js Application",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack"
   },
   "dependencies": {
     "geoip-lite": "^1.4.7",
